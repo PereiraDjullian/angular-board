@@ -1,0 +1,49 @@
+<div class="container__task-board">
+    <h1>Task Board Frontend</h1>
+    
+    <form class="form-task"#formTask = "ngForm" (ngSubmit)="addTask()">
+        <div class="inputs">
+        <input type="text" [(ngModel)]="task" id="task" name="task" placeholder="Title:" >
+        <input type="text" [(ngModel)]="taskDescription" id="taskDescription" name="taskDescription" placeholder="Description" >
+        </div>
+
+        <div class="buttons">
+
+            <button type="submit"> ADD </button>
+            <button type="button" (click)="clearTasks()">Clear</button>
+            
+        </div>
+        
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Task</th>
+                <th>Description</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @for (list of listTasks; track list.id) {
+              <tr>
+                <td>{{ list.id }}</td>
+                <td>
+                  <span [ngClass]="{ 'taskDone': list.status }">{{list.title}}</span>
+                </td>
+                <td>{{ list.description }}</td>
+                <td>
+                    <input type="checkbox" (click)="scratchTask(list)" [checked]="list.status">
+                </td>
+              </tr>
+            } @empty {
+              <tr>
+                <td colspan="4">Nenhuma tarefa encontrada</td>
+              </tr>
+            }
+          </tbody>
+          
+    </table>
+</div>
